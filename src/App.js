@@ -1,85 +1,114 @@
-import './App.css';
 import React, { useState } from "react";
-import Button from 'react-bootstrap/Button';
-import ModalGenerarReclamo from './ModalGenerarReclamo';
+import Button from "react-bootstrap/Button";
+import "./App.css";
 
-import Reclamos from './Reclamos';
-import LogIn from './LogIn';
-import Personas from './Personas';
-const logo = require('./buildingLogo.png');
+import logo from "./buildingLogo.png";
+import LogIn from "./LogIn";
+import Personas from "./Personas";
 
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query'
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const httpClient = () => {
-  const request = (method) => (url, data) => fetch(url, {
-    method,
-    headers: {
-      'Content-Type': 'application/json'
-    },
-   body: data ? JSON.stringify(data) : undefined 
-  })
+  const request = (method) => (url, data) =>
+    fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: data ? JSON.stringify(data) : undefined,
+    });
 
   return {
     get: request("GET"),
     post: request("POST"),
     put: request("PUT"),
     patch: request("PATCH"),
-    delete: request("DELETE")
-  }
-}
+    delete: request("DELETE"),
+  };
+};
 
-const Layout = ({children}) => {
-return <div className="App">
+const Layout = ({ children, onLogout, onNavigate }) => {
+  return (
+    <div className="App">
+      <nav class="navbar navbar-dark bg-dark">
+        <img src={logo} width="60" height="60" alt=""></img>
 
+        <span class="navbar-brand mb-1 h1">Consorciapp</span>
+        <div>
+          <Button onClick={onLogout}>Logout</Button>
+        </div>
+      </nav>
+      <nav class="navbar navbar-expand bg-light">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <button
+                  class="btn btn-link"
+                  onClick={() => onNavigate("personas")}
+                >
+                  Personas
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-link"
+                  onClick={() => onNavigate("edificios")}
+                >
+                  Edificios
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <br></br>
 
-<nav class="navbar navbar-dark bg-dark">
-  <img src={logo} width="60" height="60" alt=""></img>
-
-  <span class="navbar-brand mb-1 h1">Consorciapp</span>
-  <div>
-
-    
-    <Button onClick={Logout}>Logout</Button>
-  </div>
-</nav>
-
-<br></br>
-{
-  children
-}
-</div>
-}
+      {children}
+    </div>
+  );
+};
 
 function App() {
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
-  
-  function Logout() {
+  const [page, setPage] = useState("personas");
+
+  function logout() {
     setUsuarioLogueado(null);
   }
-  
-  if(usuarioLogueado === null){
-    return <Layout>
-<LogIn setUsuarioLogueado={setUsuarioLogueado}></LogIn>
-    </Layout>
+
+  if (usuarioLogueado === null) {
+    return (
+      <Layout onLogout={logout} onNavigate={setPage}>
+        <LogIn setUsuarioLogueado={setUsuarioLogueado} />
+      </Layout>
+    );
   }
 
-  return <Layout><Personas usuarioLogueado={usuarioLogueado}></Personas></Layout>;
-  
-  
+  if (page === "personas") {
+    return (
+      <Layout onLogout={logout} onNavigate={setPage}>
+        <Personas usuarioLogueado={usuarioLogueado} />
+      </Layout>
+    );
+  }
+  if (page === "edificios") {
+    return (
+      <Layout onLogout={logout} onNavigate={setPage}>
+        Edificios
+      </Layout>
+    );
+  }
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const AppWrapper = () => {
-<QueryClientProvider client={queryClient}>
+  return (
+    <QueryClientProvider client={queryClient}>
       <App />
     </QueryClientProvider>
-}
+  );
+};
 
-export default App;
+export default AppWrapper;
