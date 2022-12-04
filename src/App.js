@@ -8,25 +8,6 @@ import Personas from "./Personas";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
-const httpClient = () => {
-  const request = (method) => (url, data) =>
-    fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: data ? JSON.stringify(data) : undefined,
-    });
-
-  return {
-    get: request("GET"),
-    post: request("POST"),
-    put: request("PUT"),
-    patch: request("PATCH"),
-    delete: request("DELETE"),
-  };
-};
-
 const Layout = ({ children, onLogout, onNavigate }) => {
   return (
     <div className="App">
@@ -99,6 +80,7 @@ function App() {
       </Layout>
     );
   }
+  return null;
 }
 
 const queryClient = new QueryClient();

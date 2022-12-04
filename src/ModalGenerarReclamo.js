@@ -1,68 +1,72 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import { useForm } from "react-hook-form";
 
-function ModalGenerarReclamo() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+function ModalGenerarReclamo({ open, onClose, onSubmit }) {
+  const form = useForm();
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Generar Nuevo Reclamo
-      </Button>
+      <Modal show={open} onHide={onClose} backdrop="static" keyboard={false}>
+        <Form onSubmit={form.handleSubmit(onSubmit)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Generar Nuevo Reclamo</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
+              <Form.Label>Mi unidad</Form.Label>
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Generar Nuevo Reclamo</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <label for="exampleFormControlInput1">Ubicacion:</label>
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked></input>
-                <label class="form-check-label" for="exampleRadios1">
-                  Mi Unidad
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"></input>
-                <label class="form-check-label" for="exampleRadios2">
-                  Area General
-                </label>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Detalle de ubicacion:</label>
-              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Techo de la cocina, piso del baño"></input>
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">Descripcion</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
+              <Form.Check
+                {...form.register("miUnidad")}
+                type="radio"
+                value="option1"
+                label="Mi Unidad"
+                required
+              />
 
-            <div class="form-group">
-              <label for="exampleFormControlFile1">Fotos:</label>
-              <br></br>
-              <input type="file" class="form-control-file" id="exampleFormControlFile1"></input>
-            </div>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
-            Cancelar
-          </Button>
-          <Button variant="success">Generar</Button>
-        </Modal.Footer>
+              <Form.Check
+                {...form.register("miUnidad")}
+                type="radio"
+                required
+                value="option2"
+                label="Area General"
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Detalle de ubicacion:</Form.Label>
+              <Form.Control
+                {...form.register("ubicacion")}
+                label=""
+                required
+                placeholder="Techo de la cocina, piso del baño"
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Descripción:</Form.Label>
+              <Form.Control
+                {...form.register("descripcion")}
+                rows="3"
+                required
+                as="textarea"
+                placeholder="Techo de la cocina, piso del baño"
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Fotos:</Form.Label>
+
+              <Form.Control {...form.register("fotos")} type="file" required />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={onClose}>Cancelar</Button>
+            <Button variant="success" type="submit">
+              Generar
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );
