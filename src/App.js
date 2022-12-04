@@ -7,6 +7,7 @@ import LogIn from "./LogIn";
 import Personas from "./Personas";
 
 import { QueryClient, QueryClientProvider } from "react-query";
+import Edificios from "./Edificios";
 
 const Layout = ({ children, onLogout, onNavigate }) => {
   return (
@@ -37,6 +38,12 @@ const Layout = ({ children, onLogout, onNavigate }) => {
                   onClick={() => onNavigate("edificios")}
                 >
                   Edificios
+                </button>
+                <button
+                  class="btn btn-link"
+                  onClick={() => onNavigate("departamentos")}
+                >
+                  Departamentos
                 </button>
               </li>
             </ul>
@@ -76,10 +83,11 @@ function App() {
   if (page === "edificios") {
     return (
       <Layout onLogout={logout} onNavigate={setPage}>
-        Edificios
+        <Edificios />
       </Layout>
     );
   }
+
   return null;
 }
 
