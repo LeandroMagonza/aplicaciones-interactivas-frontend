@@ -31,8 +31,14 @@ export const useDeletePersonaMutation = () => {
 
 export const useEditPersonaMutation = () => {
   const qc = useQueryClient();
+  
+
   return useMutation(
-    (data) => httpClient.put("persona/" + data.documento, data),
+    
+    (data) => httpClient.put("persona/" + 
+    //data.documento.replace(/[0-9]/g, '')+"/"+
+    "DNI/"+
+    data.documento.replace(/\D/g, ''), data),
     {
       onSuccess: () => qc.invalidateQueries(["persona"]),
     }
@@ -62,6 +68,17 @@ export const useEditEdificioMutation = () => {
     (data) => httpClient.put("edificio/" + data.codigo, data),
     {
       onSuccess: () => qc.invalidateQueries(["edificio"]),
+    }
+  );
+  
+};
+
+export const useEditEstadoReclamo = () => {
+  const qc = useQueryClient();
+  return useMutation(
+    (data) => httpClient.put("reclamo/cambiar-estado/" + data.reclamoNumero, data),
+    {
+      onSuccess: () => qc.invalidateQueries(["reclamo"]),
     }
   );
 };
@@ -111,7 +128,7 @@ export const useDueniosQuery = (idDepto) =>
 export const useAgregarInquilinoMutation = () => {
   const qc = useQueryClient();
   return useMutation(
-    (data) => httpClient.put("unidad/agregar-inquilino", data),
+    (data) => httpClient.post("unidad/agregar-inquilino", data),
     {
       onSuccess: () => qc.invalidateQueries(["inquilinos"]),
     }
@@ -120,7 +137,8 @@ export const useAgregarInquilinoMutation = () => {
 
 export const useAgregarDuenioMutation = () => {
   const qc = useQueryClient();
-  return useMutation((data) => httpClient.put("unidad/agregar-duenios", data), {
+  return useMutation((
+    data) => httpClient.post("unidad/agregar-duenios", data), {
     onSuccess: () => qc.invalidateQueries(["duenios"]),
   });
 };

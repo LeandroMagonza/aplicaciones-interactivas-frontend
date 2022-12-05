@@ -21,12 +21,12 @@ function ModalFormDepartamento({ open, onClose, onSubmit, initialValues }) {
           </Form.Group>
           <Form.Group>
             <Form.Label>Número:</Form.Label>
-            <Form.Control {...form.register("numero")} required />
+            <Form.Control type="number" {...form.register("numero")} required />
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Habilitado:</Form.Label>
-            <Form.Select {...form.register("rol")} required>
+            <Form.Label>Habitado:</Form.Label>
+            <Form.Select {...form.register("habitado")} required>
               <option value={true}>Si</option>
               <option value={false}>No</option>
             </Form.Select>

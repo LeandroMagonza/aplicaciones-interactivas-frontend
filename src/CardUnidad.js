@@ -17,7 +17,7 @@ function CardUnidad({ unidad, setPage, setParam, usuarioLogueado }) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    
     function verReclamos(codigo) {
         setPage("reclamos");
         setParam(codigo);
@@ -50,6 +50,26 @@ function CardUnidad({ unidad, setPage, setParam, usuarioLogueado }) {
                 <ModalGenerarReclamo open={createOpen}
                     onClose={() => setCreateOpen(false)}
                     onSubmit={async (values) => {
+                        let url = "";
+                        if(values.imagenes.length){
+                            const formData  = new FormData();
+                            formData.set("key", "5b248df3f9d9593d8ee67f293cf7eb17");
+                            formData.append("image", values.imagenes[0]);
+
+                            const res = await fetch("https://api.imgbb.com/1/upload?key=5b248df3f9d9593d8ee67f293cf7eb17", {
+                                method: "POST",
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Access-Control-Allow-Origin': '*',
+                                    'Connection': 'keep-alive',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: formData,
+                            }).then((data)=>url =data.url).catch((error) => {
+                                console.log("Problema al subir imagenes al servidor.")
+                              });
+                        }
+
                         await createMutation.mutate({
                             ...values,
                             usuario: usuarioLogueado,

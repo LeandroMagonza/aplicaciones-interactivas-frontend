@@ -23,6 +23,14 @@ function ModalFormPersona({ open, onClose, onSubmit, initialValues }) {
             <Form.Label>Email:</Form.Label>
             <Form.Control {...form.register("email")} required />
           </Form.Group>
+          {/* <Form.Group>
+            <Form.Label>Tipo de documento:</Form.Label>
+            <Form.Select {...form.register("tipoDocumento")} required>
+              <option value="DNI">DNI</option>
+              <option value="CPA">CPA</option>
+              <option value="CI">CI</option>
+            </Form.Select>
+          </Form.Group> */}
           <Form.Group>
             <Form.Label>Documento:</Form.Label>
             <Form.Control {...form.register("documento")} required />
@@ -34,8 +42,8 @@ function ModalFormPersona({ open, onClose, onSubmit, initialValues }) {
           <Form.Group>
             <Form.Label>Rol:</Form.Label>
             <Form.Select {...form.register("rol")} required>
-              <option value="inquilino">Inquilino</option>
-              <option value="otro">Otro</option>
+              <option value="USER">Usuario</option>
+              <option value="ADMIN">Admin</option>
             </Form.Select>
           </Form.Group>
         </Modal.Body>

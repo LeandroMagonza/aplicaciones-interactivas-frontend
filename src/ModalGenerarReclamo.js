@@ -3,9 +3,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 function ModalGenerarReclamo({ open, onClose, onSubmit }) {
   const form = useForm();
+
   return (
     <>
       <Modal show={open} onHide={onClose} backdrop="static" keyboard={false}>
@@ -13,8 +15,10 @@ function ModalGenerarReclamo({ open, onClose, onSubmit }) {
           <Modal.Header closeButton>
             <Modal.Title>Generar Nuevo Reclamo</Modal.Title>
           </Modal.Header>
+          
           <Modal.Body>
             <Form.Group>
+              
               <Form.Label>Mi unidad</Form.Label>
 
               <Form.Check
@@ -58,7 +62,7 @@ function ModalGenerarReclamo({ open, onClose, onSubmit }) {
               <Form.Label>Fotos:</Form.Label>
 
               <Form.Control {...form.register("imagenes")} type="file" required />
-            </Form.Group>
+            </Form.Group> 
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={onClose}>Cancelar</Button>

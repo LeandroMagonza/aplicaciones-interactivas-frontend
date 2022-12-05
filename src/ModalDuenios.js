@@ -16,13 +16,12 @@ function ModalDuenios({ open, onClose, idDepto }) {
 
   const handleAgregarInquilino = async (values) => {
     await agregarDuenioMutation.mutateAsync({
-      codigoUnidad: idDepto,
+      codigoUnidad: idDepto.toString(),
       documento: values.duenio,
     });
     form.reset();
   };
 
-  console.log(dueniosQuery.data);
 
   const form = useForm();
   return (

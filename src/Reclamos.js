@@ -17,9 +17,10 @@ function Reclamos({ usuarioLogueado, edificio }) {
     fetch(baseUrl + "reclamo/edificio/" + edificio)
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         setReclamos(data);
-      });
+      }).catch(
+        ()=>{alert("Problema al traer reclamos del edificio nro "+edificio+".")}
+    );
 
 
 

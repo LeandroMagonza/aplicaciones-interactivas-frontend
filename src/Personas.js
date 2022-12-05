@@ -36,6 +36,8 @@ function Personas() {
             <tr>
               <th scope="col">Nombre</th>
               <th scope="col">Documento</th>
+              
+              <th scope="col">Email</th>
               <th scope="col">Rol</th>
               <th scope="col">Acciones</th>
             </tr>
@@ -44,17 +46,9 @@ function Personas() {
             {(personasQuery.data ?? []).map((p) => (
               <tr key={p.documento}>
                 <td>{p.nombre}</td>
+                <td>{p.documento}</td>
                 <td>{p.email}</td>
                 <td>{p.rol}</td>
-                <td>
-                  <Button onClick={() => setEditingPersona(p)}>Editar</Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => deletePersonaMutation.mutate(p.documento)}
-                  >
-                    Borrar
-                  </Button>
-                </td>
               </tr>
             ))}
           </tbody>

@@ -25,7 +25,9 @@ function MisUnidades({ usuarioLogueado,setPage, setParam }) {
                     unidades.push(unidadInquilino);
                 });
                 setMisUnidades(unidades);
-            })
+            }).catch(
+                ()=>{alert("Problema al traer unidades.")}
+            );
     }, []);
 
 

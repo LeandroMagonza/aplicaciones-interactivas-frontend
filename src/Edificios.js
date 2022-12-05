@@ -20,7 +20,6 @@ function Edificios({setPage, setParam}) {
   const deleteMutation = useDeleteEdificioMutation();
   const editMutation = useEditEdificioMutation();
 
-  console.log("edificios", edificiosQuery.data)
 
   if (edificiosQuery.data === undefined) {
     return <p>Cargando...</p>;
@@ -65,12 +64,7 @@ function Edificios({setPage, setParam}) {
                   <Button
                   variant="warning"
                     onClick={() => verReclamos(p.codigo)}>Reclamos</Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => deleteMutation.mutate(p.codigo)}
-                  >
-                    Borrar
-                  </Button>
+                
                 </td>
               </tr>
             ))}

@@ -14,6 +14,8 @@ import {
 
 function Departamentos({ edificio, open, onClose }) {
   const departamentosQuery = useDepartamentosQuery(edificio.codigo);
+  
+
 
   const [editing, setEditing] = useState(undefined);
   const [createOpen, setCreateOpen] = useState(false);
@@ -79,18 +81,14 @@ function Departamentos({ edificio, open, onClose }) {
                       Duenios
                     </Button>
 
-                    <Button
-                      variant="text"
-                      onClick={() => deleteMutation.mutate(depto.codigo)}
-                    >
-                      Borrar
-                    </Button>
+                    
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        
         <ModalFormDepartamento
           open={createOpen}
           onClose={() => setCreateOpen(false)}

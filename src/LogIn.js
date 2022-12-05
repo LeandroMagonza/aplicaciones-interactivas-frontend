@@ -20,10 +20,8 @@ function LogIn(props) {
 
   const handleValidarContrasenia = (form) => {
     let personaEncontrada = null;
-    console.log(data);
     data.forEach(persona => {
       if (persona.documento == form.documento && persona.password == form.password) {
-        console.log(form.documento, form.password, "encontrada");
         personaEncontrada = persona;
       }
     });
