@@ -16,8 +16,8 @@ function ModalInquilinos({ open, onClose, idDepto }) {
 
   const handleAgregarInquilino = async (values) => {
     await agregarInquilinoMutation.mutateAsync({
-      codigoUnidad: idDepto,
-      documento: values.inquilino.documento,
+      codigoUnidad: idDepto.toString(),
+      documento: values.inquilino,
     });
     form.reset();
   };

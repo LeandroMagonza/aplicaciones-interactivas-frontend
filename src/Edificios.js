@@ -10,7 +10,7 @@ import {
   useEditEdificioMutation,
 } from "./utils/api";
 
-function Edificios() {
+function Edificios({setPage, setParam}) {
   const edificiosQuery = useEdificiosQuery();
 
   const [createOpen, setCreateOpen] = useState(false);
@@ -20,9 +20,16 @@ function Edificios() {
   const deleteMutation = useDeleteEdificioMutation();
   const editMutation = useEditEdificioMutation();
 
+  console.log("edificios", edificiosQuery.data)
+
   if (edificiosQuery.data === undefined) {
     return <p>Cargando...</p>;
   }
+
+  function verReclamos(codigo) {
+    setPage("reclamos");
+    setParam(codigo);
+}
 
   return (
     <div>
@@ -56,7 +63,10 @@ function Edificios() {
                     Departamentos
                   </Button>
                   <Button
-                    variant="text"
+                  variant="warning"
+                    onClick={() => verReclamos(p.codigo)}>Reclamos</Button>
+                  <Button
+                    variant="danger"
                     onClick={() => deleteMutation.mutate(p.codigo)}
                   >
                     Borrar

@@ -142,15 +142,19 @@
 
 export const baseUrl = "http://localhost:8080/api/";
 
-const request = (method) => (url, data) =>
-  fetch(baseUrl + url, {
+const request = (method) => async (url, data) =>{
+
+ const res = await fetch(baseUrl + url, {
     method,
     headers: {
       "Content-Type": "application/json",
     },
     body: data ? JSON.stringify(data) : undefined,
   });
-
+  
+  return res.json()
+  
+}
   export const httpClient = {
   get: request("GET"),
   post: request("POST"),

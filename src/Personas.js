@@ -49,7 +49,7 @@ function Personas() {
                 <td>
                   <Button onClick={() => setEditingPersona(p)}>Editar</Button>
                   <Button
-                    variant="text"
+                    variant="danger"
                     onClick={() => deletePersonaMutation.mutate(p.documento)}
                   >
                     Borrar

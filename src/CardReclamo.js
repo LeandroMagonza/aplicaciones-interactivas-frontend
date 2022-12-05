@@ -24,6 +24,7 @@ function CardReclamo(props) {
                 <h5 className="card-title">Creador: {props.reclamo.usuario.nombre}</h5>
                 <p className="card-text">Descripcion: {props.reclamo.descripcion}</p>
                 <p className="card-text">Ubicacion: {props.reclamo.ubicacion}</p>
+                <p className="card-text">Estado: {props.reclamo.estado}</p>
                 {/*<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>*/}
                 {/*<a href="#" class="btn btn-primary">Go somewhere</a>*/}
             </div>

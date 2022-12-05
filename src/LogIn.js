@@ -5,12 +5,15 @@ import Form from "react-bootstrap/Form";
 
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { httpClient } from "./utils/httpClient";
+
+const getPersona =  () => {
+  return httpClient.get("persona");
+
+}
+
 function LogIn(props) {
 
-  const getPersona = async () => {
-    const response = await httpClient.get("persona");
-    return response.json();
-  }
+
   const { data } = useQuery('persona', getPersona);
   
   const form = useForm();
@@ -26,7 +29,7 @@ function LogIn(props) {
     });
 
     if (personaEncontrada == null) {
-      console.log("Nombre de usuario y contraseña no validos.")
+      alert("Nombre de usuario y contraseña no validos.")
     }
     else{
      props.setUsuarioLogueado(personaEncontrada);

@@ -17,7 +17,7 @@ function ModalDuenios({ open, onClose, idDepto }) {
   const handleAgregarInquilino = async (values) => {
     await agregarDuenioMutation.mutateAsync({
       codigoUnidad: idDepto,
-      documento: values.duenio.documento,
+      documento: values.duenio,
     });
     form.reset();
   };
@@ -56,12 +56,14 @@ function ModalDuenios({ open, onClose, idDepto }) {
             <tr>
               <th scope="col">Nombre</th>
               <th scope="col">Documento</th>
+              <th scope="col">Mail</th>
             </tr>
           </thead>
           <tbody>
             {(dueniosQuery.data ?? []).map((p) => (
               <tr key={p.documento}>
                 <td>{p.nombre}</td>
+                <td>{p.documento}</td>
                 <td>{p.email}</td>
               </tr>
             ))}

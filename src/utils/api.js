@@ -3,10 +3,10 @@ import { httpClient } from "./httpClient";
 
 
 
-export const usePersonasQuery =  () => {
- const response =  useQuery(["persona"], async () => await httpClient.get("persona"));
- return response
-}
+export const usePersonasQuery =  () => 
+ useQuery(["persona"], () => httpClient.get("persona"));
+ 
+
 
 export const useCreatePersonaMutation = () => {
   const qc = useQueryClient();
@@ -93,7 +93,7 @@ export const useDeleteDepartamentoMutation = () => {
 
 export const useEditDepartamentoMutation = () => {
   const qc = useQueryClient();
-  return useMutation((data) => httpClient.put(`unidad/` + data.codigo, data), {
+  return useMutation((data) => httpClient.put(`unidad/` + data.i, data), {
     onSuccess: () => qc.invalidateQueries(["unidad"]),
   });
 };

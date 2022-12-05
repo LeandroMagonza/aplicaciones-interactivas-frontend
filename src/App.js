@@ -30,7 +30,7 @@ const Layout = ({ children, onLogout, onNavigate, usuarioLogueado }) => {
 
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 {(usuarioLogueado.rol == "ADMIN") ?
-                  <div>
+                  <span>
                     <li className="nav-item">
                       <button
                         className="btn btn-link"
@@ -47,15 +47,15 @@ const Layout = ({ children, onLogout, onNavigate, usuarioLogueado }) => {
                         Edificios
                       </button>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <button
                         className="btn btn-link"
                         onClick={() => onNavigate("reclamos")}
                       >
                         Reclamos
                       </button>
-                    </li>
-                  </div> : ""}
+                    </li> */}
+                  </span> : ""}
                 <li className="nav-item">
                   <button
                     className="btn btn-link"
@@ -103,7 +103,7 @@ function App() {
   if (page === "edificios") {
     return (
       <Layout onLogout={logout} onNavigate={setPage} usuarioLogueado={usuarioLogueado}>
-        <Edificios usuarioLogueado={usuarioLogueado} />
+        <Edificios usuarioLogueado={usuarioLogueado} setPage={setPage}  setParam={setParam}/>
       </Layout>
     );
   }

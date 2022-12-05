@@ -37,7 +37,7 @@ function Departamentos({ edificio, open, onClose }) {
       size="xl"
     >
       <Modal.Header closeButton>
-        <Modal.Title>Generar Nuevo Edificio</Modal.Title>
+        <Modal.Title>Datos de Edificio</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="d-flex justify-content-around">
@@ -60,11 +60,11 @@ function Departamentos({ edificio, open, onClose }) {
             </thead>
             <tbody>
               {(departamentosQuery.data ?? []).map((depto) => (
-                <tr key={depto.codigo}>
+                <tr key={depto.id}>
                   <td>{depto.piso}</td>
                   <td>{depto.numero}</td>
                   <td>{depto.habitado === true ? "Si" : "No"}</td>
-                  <td>{depto.edificio.codigo}</td>
+         
 
                   <td>
                     <Button onClick={() => setEditing(depto)}>Editar</Button>
@@ -118,14 +118,14 @@ function Departamentos({ edificio, open, onClose }) {
         )}
         {showInquilinos && (
           <ModalInquilinos
-            idDepto={showInquilinos.codigo}
+            idDepto={showInquilinos.id}
             onClose={() => setShowInquilinos(undefined)}
             open={showInquilinos !== undefined}
           />
         )}
         {showDuenios && (
           <ModalDuenios
-            idDepto={showDuenios.codigo}
+            idDepto={showDuenios.id}
             onClose={() => setShowDuenios(undefined)}
             open={showDuenios !== undefined}
           />

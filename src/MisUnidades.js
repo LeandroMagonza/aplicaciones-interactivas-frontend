@@ -47,7 +47,7 @@ function MisUnidades({ usuarioLogueado,setPage, setParam }) {
                 {(misUnidades.length == 0)?"Cargando":""}
                 {misUnidades.map((unidad) => {
                     return (
-                        <CardUnidad unidad={unidad} key={unidad.id}
+                        <CardUnidad usuarioLogueado={usuarioLogueado} unidad={unidad} key={unidad.id}
                         setPage = {setPage} setParam = {setParam}></CardUnidad>
                     );
                 })}
