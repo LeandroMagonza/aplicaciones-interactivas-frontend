@@ -1,67 +1,37 @@
 import './App.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalGenerarReclamo from './ModalGenerarReclamo';
 import CardReclamo from './CardReclamo';
+import Button from "react-bootstrap/Button";
 
-function Reclamos() {
-    const [reclamos, setReclamos] = useState([
-        {
-          "usuario": {
-            "documento": "CPA3449614",
-            "nombre": "BRITEZ, BLAS                  "
-          },
-          "edificio": {
-            "codigo": 1,
-            "nombre": "SLS Puerto Madero",
-            "direccion": "Mogliani 425"
-          },
-          "ubicacion": "Techo cocina",
-          "descripcion": "Gotera",
-          "unidad": {
-            "id": 15,
-            "piso": "8",
-            "numero": "4",
-            "habitado": true,
-            "edificio": {
-              "codigo": 1,
-              "nombre": "SLS Puerto Madero",
-              "direccion": "Mogliani 425"
-            }
-          },
-          "estado": 0,
-          "imagenes": [
-    
-          ]
-        },
-        {
-          "usuario": {
-            "documento": "CPA3786534",
-            "nombre": "CONDE, CARLOS                  "
-          },
-          "edificio": {
-            "codigo": 2,
-            "nombre": "El Achurero",
-            "direccion": "Acervitan 1426"
-          },
-          "ubicacion": "Toilette",
-          "descripcion": "Baldosa Rota",
-          "unidad": {
-            "id": 16,
-            "piso": "3",
-            "numero": "1",
-            "habitado": true,
-            "edificio": {
-              "codigo": 2,
-              "nombre": "El Achurero",
-              "direccion": "Acervitan 1426"
-            }
-          },
-          "estado": 0,
-          "imagenes": [
-    
-          ]
-        }
-      ]);
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  useCreateReclamoMutation,
+  useDeleteEdificioMutation,
+  useEdificiosQuery,
+  useEditEdificioMutation,
+} from "./utils/api";
+import { baseUrl, httpClient } from "./utils/httpClient";
+
+function Reclamos({ usuarioLogueado, edificio }) {
+  const createMutation = useCreateReclamoMutation();
+  const deleteMutation = useDeleteEdificioMutation();
+  const editMutation = useEditEdificioMutation();
+  const [reclamos, setReclamos] = useState([]);
+  const [createOpen, setCreateOpen] = useState(false);
+
+  useEffect(() => {
+    fetch(baseUrl + "reclamo/edificio/" + edificio)
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data);
+        setReclamos(data);
+      });
+
+
+
+  }, []);
+
 
 
   return (
@@ -69,16 +39,28 @@ function Reclamos() {
 
       <div className='d-flex justify-content-around'>
         <h2 className='pageTitle'>Reclamos</h2>
-        <ModalGenerarReclamo></ModalGenerarReclamo>
+        <Button variant="primary" onClick={() => setCreateOpen(true)}>
+          Generar Reclamo
+        </Button>
+        <ModalGenerarReclamo open={createOpen}
+        onClose={() => setCreateOpen(false)}
+        onSubmit={async (values) => {
+          await createMutation.mutate(values);
+          setCreateOpen(false);
+        }}
+        edificio={edificio}
+      />
       </div>
       <hr></hr>
       <div className='container'>
 
-        {reclamos.map((reclamo) => {
+      {(reclamos.length == 0)?"No Hay Reclamos para el edificio "+edificio:
+        reclamos.map((reclamo) => {
           return (
-            <CardReclamo reclamo={reclamo}></CardReclamo>
+            <CardReclamo reclamo={reclamo} key={reclamo.numero}></CardReclamo>
           );
-        })}
+        })
+        }
 
       </div>
     </div>

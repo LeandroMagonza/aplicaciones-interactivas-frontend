@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
 
-function ModalGenerarReclamo({ open, onClose, onSubmit }) {
+function ModalGenerarReclamo({ open, onClose, onSubmit,edificio }) {
   const form = useForm();
   return (
     <>
@@ -20,7 +20,7 @@ function ModalGenerarReclamo({ open, onClose, onSubmit }) {
               <Form.Check
                 {...form.register("miUnidad")}
                 type="radio"
-                value="option1"
+                value={edificio}
                 label="Mi Unidad"
                 required
               />
@@ -29,7 +29,7 @@ function ModalGenerarReclamo({ open, onClose, onSubmit }) {
                 {...form.register("miUnidad")}
                 type="radio"
                 required
-                value="option2"
+                value={edificio}
                 label="Area General"
               />
             </Form.Group>
@@ -53,12 +53,12 @@ function ModalGenerarReclamo({ open, onClose, onSubmit }) {
                 placeholder="Techo de la cocina, piso del baño"
               />
             </Form.Group>
-
+{/* 
             <Form.Group>
               <Form.Label>Fotos:</Form.Label>
 
               <Form.Control {...form.register("fotos")} type="file" required />
-            </Form.Group>
+            </Form.Group> */}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={onClose}>Cancelar</Button>

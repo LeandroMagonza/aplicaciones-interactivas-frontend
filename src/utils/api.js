@@ -1,13 +1,24 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { httpClient } from "./httpClient";
 
-export const usePersonasQuery = () =>
-  useQuery(["persona"], () => httpClient.get("persona"));
+
+
+export const usePersonasQuery =  () => {
+ const response =  useQuery(["persona"], async () => await httpClient.get("persona"));
+ return response
+}
 
 export const useCreatePersonaMutation = () => {
   const qc = useQueryClient();
   return useMutation((data) => httpClient.post("persona", data), {
     onSuccess: () => qc.invalidateQueries(["persona"]),
+  });
+};
+
+export const useValidateContraseniaMutation = () => {
+  const qc = useQueryClient();
+  return useMutation((data) => httpClient.post("persona/validar-password", data), {
+    onSuccess: (response) => qc.invalidateQueries(["persona"]),
   });
 };
 
@@ -64,6 +75,12 @@ export const useCreateDepartamentoMutation = () => {
   const qc = useQueryClient();
   return useMutation((data) => httpClient.post("unidad", data), {
     onSuccess: () => qc.invalidateQueries(["unidad"]),
+  });
+};
+export const useCreateReclamoMutation = () => {
+  const qc = useQueryClient();
+  return useMutation((data) => httpClient.post("reclamo", data), {
+    onSuccess: () => qc.invalidateQueries(["reclamo"]),
   });
 };
 

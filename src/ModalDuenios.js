@@ -36,7 +36,7 @@ function ModalDuenios({ open, onClose, idDepto }) {
           style={{ display: "flex", gap: 10 }}
         >
           <Form.Group>
-            <Form.Label>Duenios:</Form.Label>
+            <Form.Label>Dueños:</Form.Label>
             <Form.Select {...form.register("duenio")} required>
               {(personasQuery.data ?? []).map((i) => (
                 <option value={i.documento}>

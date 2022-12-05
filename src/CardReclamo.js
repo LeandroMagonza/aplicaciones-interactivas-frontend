@@ -10,9 +10,9 @@ function CardReclamo(props) {
     const handleShow = () => setShow(true);
 
     return (
-        <div class="card" id="headingOne">
+        <div className="card" id="headingOne">
 
-            <h5 class="card-header">
+            <h5 className="card-header">
             {props.reclamo.edificio.direccion}
             &nbsp;
             Piso: {props.reclamo.unidad.piso}
@@ -20,9 +20,10 @@ function CardReclamo(props) {
             Dto: {props.reclamo.unidad.numero}
 
             </h5>
-            <div class="card-body">
-                <h5 class="card-title">Creador: {props.reclamo.usuario.nombre}</h5>
-                <p class="card-text">Descripcion: {props.reclamo.descripcion}</p>
+            <div className="card-body">
+                <h5 className="card-title">Creador: {props.reclamo.usuario.nombre}</h5>
+                <p className="card-text">Descripcion: {props.reclamo.descripcion}</p>
+                <p className="card-text">Ubicacion: {props.reclamo.ubicacion}</p>
                 {/*<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>*/}
                 {/*<a href="#" class="btn btn-primary">Go somewhere</a>*/}
             </div>
